@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Teste online para avaliação inicial de sintomas de TDAH (Transtorno de Déficit de Atenção e Hiperatividade). Identifique sinais e marque uma conversa com um psicólogo especializado.">
+    <title>Teste TDAH Online | Avaliação Inicial de Sintomas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#F59E0B',
+                        accent: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F3F4F6',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        .dark-mode {
+            background-color: #1F2937;
+            color: #F3F4F6;
+        }
+        .dark-mode .card {
+            background-color: #374151;
+            border-color: #4B5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-accent text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-brain text-3xl"></i>
+                <h1 class="text-2xl font-bold">TDAH Check</h1>
+            </div>
+            <button id="darkModeToggle" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="container mx-auto px-4 py-12">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0">
+                    <h2 class="text-4xl font-bold text-dark mb-4">Você tem dificuldades com foco, atenção ou impulsividade?</h2>
+                    <p class="text-lg text-gray-700 mb-6">Este é um teste baseado nos principais instrumentos clínicos usados por psicólogos para avaliar sinais de TDAH. Ele não substitui o diagnóstico, mas pode indicar se há sinais para procurar ajuda especializada.</p>
+                    <button id="startTestBtn" class="bg-secondary hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg transition transform hover:scale-105 shadow-lg">
+                        Começar o Teste <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="lg:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <img src="./msg/cerebro.png" alt="Personagens ilustrando sintomas de TDAH" class="w-full max-w-md rounded-lg shadow-xl float-animation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section id="info" class="bg-light py-12 hidden">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-dark mb-12">O que é TDAH?</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="card bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-primary text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-info-circle text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Entendendo o TDAH</h3>
+                        </div>
+                        <p class="text-gray-700">O Transtorno de Déficit de Atenção e Hiperatividade (TDAH) é uma condição neurobiológica que afeta a capacidade de concentração, controle de impulsos e nível de atividade. Pode se manifestar de diferentes formas em crianças e adultos.</p>
+                    </div>
+                    
+                    <div class="card bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-stethoscope text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Critérios Diagnósticos</h3>
+                        </div>
+                        <p class="text-gray-700">Este teste é baseado nos critérios do DSM-5 e no ASRS-18 (Adult ADHD Self-Report Scale), instrumentos amplamente utilizados por profissionais para avaliação inicial de sintomas de TDAH.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-center mb-6">Quais os sintomas mais comuns?</h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <i class="fas fa-eye-slash text-3xl text-primary mb-2"></i>
+                            <h4 class="font-medium">Desatenção</h4>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <i class="fas fa-bolt text-3xl text-secondary mb-2"></i>
+                            <h4 class="font-medium">Impulsividade</h4>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <i class="fas fa-clock text-3xl text-accent mb-2"></i>
+                            <h4 class="font-medium">Procrastinação</h4>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <i class="fas fa-calendar-times text-3xl text-primary mb-2"></i>
+                            <h4 class="font-medium">Esquecimento</h4>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <i class="fas fa-running text-3xl text-secondary mb-2"></i>
+                            <h4 class="font-medium">Agitação</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Por que procurar um psicólogo?</h3>
+                    <p class="text-gray-700 max-w-3xl mx-auto mb-6">O diagnóstico correto é essencial para entender suas dificuldades e desenvolver estratégias eficazes. Um psicólogo especializado pode ajudar com avaliação completa, orientação e tratamento adequado para melhorar sua qualidade de vida.</p>
+                    <button id="proceedToTestBtn" class="bg-primary hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full text-lg transition transform hover:scale-105 shadow-lg">
+                        Fazer o Teste Agora <i class="fas fa-play ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Section -->
+        <section id="test" class="py-12 hidden">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-dark mb-2">Teste de Avaliação de TDAH</h2>
+                    <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                        <div id="progressBar" class="progress-bar bg-secondary h-4 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p id="progressText" class="text-gray-600">Pergunta 1 de 18</p>
+                </div>
+                
+                <div id="questionContainer" class="bg-white p-6 rounded-lg shadow-lg mb-8 fade-in">
+                    <!-- Questions will be loaded here by JavaScript -->
+                </div>
+                
+                <div class="flex justify-between">
+                    <button id="prevQuestionBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full transition opacity-0">
+                        <i class="fas fa-arrow-left mr-2"></i> Anterior
+                    </button>
+                    <button id="nextQuestionBtn" class="bg-primary hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition">
+                        Próxima <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="py-16 bg-gradient-to-br from-primary to-accent hidden">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <div class="p-8 text-center">
+                        <div class="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-chart-bar text-white text-4xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark mb-4">Seus Resultados</h2>
+                        
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <span>Desatenção</span>
+                                <span id="inattentionScore">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div id="inattentionBar" class="progress-bar bg-yellow-500 h-4 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <span>Hiperatividade</span>
+                                <span id="hyperactivityScore">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div id="hyperactivityBar" class="progress-bar bg-green-500 h-4 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <span>Impulsividade</span>
+                                <span id="impulsivityScore">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div id="impulsivityBar" class="progress-bar bg-red-500 h-4 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="resultMessage" class="text-lg text-gray-700 mb-8 p-4 bg-gray-50 rounded-lg">
+                            <!-- Result message will be inserted here -->
+                        </div>
+                        
+                        <button id="contactBtn" class="bg-secondary hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg transition transform hover:scale-105 shadow-lg mb-4">
+                            Falar com um Psicólogo <i class="fas fa-comments ml-2"></i>
+                        </button>
+                        
+                        <button id="retakeTestBtn" class="text-primary hover:text-indigo-700 font-medium">
+                            Refazer o Teste
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 hidden">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-dark mb-2">Quer conversar com um psicólogo?</h2>
+                    <p class="text-lg text-gray-600">Preencha o formulário abaixo e entraremos em contato para agendar sua consulta</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-xl p-8">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">E-mail</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Telefone (opcional)</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">Olá! Acabei de fazer o teste de TDAH e gostaria de conversar com um psicólogo.</textarea>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button type="submit" class="flex-1 bg-primary hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                                Enviar Mensagem <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                            <button type="button" id="whatsappBtn" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition flex items-center justify-center">
+                                <i class="fab fa-whatsapp mr-2 text-xl"></i> WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 bg-light">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="text-3xl font-bold text-center text-dark mb-12">Perguntas Frequentes</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+                            <span>Este teste substitui um diagnóstico profissional?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="faq-answer mt-3 text-gray-700 hidden">
+                            Não, este teste é apenas uma ferramenta de triagem inicial. Um diagnóstico formal de TDAH deve ser feito por um profissional de saúde mental qualificado através de uma avaliação abrangente.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+                            <span>Quais são as opções de tratamento para TDAH?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="faq-answer mt-3 text-gray-700 hidden">
+                            O tratamento pode incluir terapia comportamental, treinamento de habilidades organizacionais, medicamentos (quando indicado), e adaptações no ambiente de trabalho ou estudo. O plano ideal varia para cada pessoa.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+                            <span>Adultos podem ter TDAH mesmo sem diagnóstico na infância?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="faq-answer mt-3 text-gray-700 hidden">
+                            Sim, muitos adultos recebem o diagnóstico tardiamente. Alguns podem ter tido sintomas menos evidentes na infância ou desenvolveram estratégias de compensação que mascaram as dificuldades.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+                            <span>O TDAH está relacionado à inteligência?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="faq-answer mt-3 text-gray-700 hidden">
+                            Não, o TDAH não está relacionado ao nível de inteligência. Pessoas com TDAH podem ter QI alto, médio ou baixo, assim como a população em geral. As dificuldades estão na regulação da atenção e impulsividade, não na capacidade intelectual.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-brain text-2xl"></i>
+                        <span class="text-xl font-bold">TDAH Check</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Ferramenta de triagem inicial para TDAH</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 TDAH Check. Este site não oferece diagnóstico médico. Consulte um profissional de saúde para avaliação.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        // Navigation between sections
+        const sections = {
+            home: document.getElementById('home'),
+            info: document.getElementById('info'),
+            test: document.getElementById('test'),
+            results: document.getElementById('results'),
+            contact: document.getElementById('contact')
+        };
+        
+        const startTestBtn = document.getElementById('startTestBtn');
+        const proceedToTestBtn = document.getElementById('proceedToTestBtn');
+        const contactBtn = document.getElementById('contactBtn');
+        const retakeTestBtn = document.getElementById('retakeTestBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        
+        function showSection(sectionToShow) {
+            // Hide all sections
+            Object.values(sections).forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show the requested section
+            sectionToShow.classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        startTestBtn.addEventListener('click', () => {
+            showSection(sections.info);
+        });
+        
+        proceedToTestBtn.addEventListener('click', () => {
+            showSection(sections.test);
+            loadQuestion(0);
+        });
+        
+        contactBtn.addEventListener('click', () => {
+            showSection(sections.contact);
+        });
+        
+        retakeTestBtn.addEventListener('click', () => {
+            showSection(sections.test);
+            loadQuestion(0);
+        });
+        
+        // WhatsApp integration
+        whatsappBtn.addEventListener('click', () => {
+            const name = document.getElementById('name').value || 'Usuário';
+            const message = encodeURIComponent(document.getElementById('message').value);
+            window.open(`https://wa.me/551176347201?text=Olá,%20meu%20nome%20é%20${encodeURIComponent(name)}.%20${message}`, '_blank');
+        });
+        
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // Test functionality
+        const questions = [
+            {
+                question: "Você se distrai com facilidade ao realizar tarefas que exigem atenção?",
+                category: "inattention",
+                icon: "far fa-eye-slash"
+            },
+            {
+                question: "Você tem dificuldade para se organizar ou para manter a ordem em tarefas que exigem planejamento?",
+                category: "inattention",
+                icon: "fas fa-tasks"
+            },
+            {
+                question: "Você frequentemente evita, adia ou demora para começar tarefas que exigem esforço mental prolongado?",
+                category: "inattention",
+                icon: "fas fa-clock"
+            },
+            {
+                question: "Você frequentemente perde objetos necessários para tarefas ou atividades (como chaves, documentos, celular)?",
+                category: "inattention",
+                icon: "fas fa-key"
+            },
+            {
+                question: "Você se esquece facilmente de compromissos ou atividades do dia a dia?",
+                category: "inattention",
+                icon: "fas fa-calendar-alt"
+            },
+            {
+                question: "Você frequentemente se mexe na cadeira, bate os pés ou as mãos quando precisa ficar sentado por muito tempo?",
+                category: "hyperactivity",
+                icon: "fas fa-chair"
+            },
+            {
+                question: "Você se sente inquieto ou tem dificuldade para relaxar?",
+                category: "hyperactivity",
+                icon: "fas fa-spa"
+            },
+            {
+                question: "Você frequentemente fala em excesso ou tem dificuldade para ficar em silêncio em situações sociais?",
+                category: "hyperactivity",
+                icon: "fas fa-comment-dots"
+            },
+            {
+                question: "Você frequentemente se sente como se estivesse 'ligado no 220V' ou 'movido a motor'?",
+                category: "hyperactivity",
+                icon: "fas fa-bolt"
+            },
+            {
+                question: "Você tem dificuldade para esperar sua vez em situações sociais (como em filas ou conversas)?",
+                category: "impulsivity",
+                icon: "fas fa-people-arrows"
+            },
+            {
+                question: "Você frequentemente interrompe os outros ou se intromete em conversas ou atividades?",
+                category: "impulsivity",
+                icon: "fas fa-comment-medical"
+            },
+            {
+                question: "Você toma decisões impulsivas sem pensar nas consequências?",
+                category: "impulsivity",
+                icon: "fas fa-exclamation-triangle"
+            },
+            {
+                question: "Você tem dificuldade para manter o foco em conversas, mesmo quando está interessado no assunto?",
+                category: "inattention",
+                icon: "fas fa-comments"
+            },
+            {
+                question: "Você frequentemente muda de uma atividade inacabada para outra?",
+                category: "inattention",
+                icon: "fas fa-exchange-alt"
+            },
+            {
+                question: "Você tem dificuldade para seguir instruções ou terminar trabalhos?",
+                category: "inattention",
+                icon: "fas fa-list-ol"
+            },
+            {
+                question: "Você frequentemente age sem pensar quando está estressado?",
+                category: "impulsivity",
+                icon: "fas fa-brain"
+            },
+            {
+                question: "Você tem dificuldade para esperar por recompensas ou gratificações?",
+                category: "impulsivity",
+                icon: "fas fa-gift"
+            },
+            {
+                question: "Você frequentemente se envolve em atividades físicas perigosas sem considerar possíveis consequências?",
+                category: "impulsivity",
+                icon: "fas fa-car-crash"
+            }
+        ];
+        
+        let currentQuestion = 0;
+        const answers = Array(questions.length).fill(null);
+        
+        const questionContainer = document.getElementById('questionContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        
+        function loadQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+            
+            currentQuestion = index;
+            const question = questions[index];
+            
+            // Update progress
+            const progress = ((index + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `Pergunta ${index + 1} de ${questions.length}`;
+            
+            // Update navigation buttons
+            prevQuestionBtn.classList.toggle('opacity-0', index === 0);
+            nextQuestionBtn.textContent = index === questions.length - 1 ? 'Ver Resultados' : 'Próxima';
+            nextQuestionBtn.innerHTML = index === questions.length - 1 ? 'Ver Resultados <i class="fas fa-poll ml-2"></i>' : 'Próxima <i class="fas fa-arrow-right ml-2"></i>';
+            
+            // Create question HTML
+            questionContainer.innerHTML = `
+                <div class="flex items-center mb-6">
+                    <i class="${question.icon} text-3xl text-primary mr-4"></i>
+                    <h3 class="text-xl font-semibold">${question.question}</h3>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="radio" name="answer" value="0" class="h-5 w-5 text-primary focus:ring-primary" ${answers[index] === 0 ? 'checked' : ''}>
+                        <span class="ml-3 text-gray-700">Nunca</span>
+                    </label>
+                    <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="radio" name="answer" value="1" class="h-5 w-5 text-primary focus:ring-primary" ${answers[index] === 1 ? 'checked' : ''}>
+                        <span class="ml-3 text-gray-700">Raramente</span>
+                    </label>
+                    <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="radio" name="answer" value="2" class="h-5 w-5 text-primary focus:ring-primary" ${answers[index] === 2 ? 'checked' : ''}>
+                        <span class="ml-3 text-gray-700">Às vezes</span>
+                    </label>
+                    <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="radio" name="answer" value="3" class="h-5 w-5 text-primary focus:ring-primary" ${answers[index] === 3 ? 'checked' : ''}>
+                        <span class="ml-3 text-gray-700">Frequentemente</span>
+                    </label>
+                    <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="radio" name="answer" value="4" class="h-5 w-5 text-primary focus:ring-primary" ${answers[index] === 4 ? 'checked' : ''}>
+                        <span class="ml-3 text-gray-700">Sempre</span>
+                    </label>
+                </div>
+            `;
+            
+            // Add event listeners to radio buttons
+            const radioButtons = questionContainer.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    answers[index] = parseInt(radio.value);
+                });
+            });
+            
+            // If we already have an answer for this question, select it
+            if (answers[index] !== null) {
+                const radioToSelect = questionContainer.querySelector(`input[value="${answers[index]}"]`);
+                if (radioToSelect) radioToSelect.checked = true;
+            }
+        }
+        
+        prevQuestionBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                loadQuestion(currentQuestion - 1);
+            }
+        });
+        
+        nextQuestionBtn.addEventListener('click', () => {
+            if (answers[currentQuestion] === null) {
+                alert('Por favor, selecione uma resposta antes de continuar.');
+                return;
+            }
+            
+            if (currentQuestion < questions.length - 1) {
+                loadQuestion(currentQuestion + 1);
+            } else {
+                showResults();
+            }
+        });
+        
+        function showResults() {
+            // Calculate scores for each category
+            const categoryScores = {
+                inattention: { sum: 0, count: 0 },
+                hyperactivity: { sum: 0, count: 0 },
+                impulsivity: { sum: 0, count: 0 }
+            };
+            
+            questions.forEach((question, index) => {
+                if (answers[index] !== null) {
+                    categoryScores[question.category].sum += answers[index];
+                    categoryScores[question.category].count++;
+                }
+            });
+            
+            // Calculate percentages (normalize to 0-100%)
+            const inattentionScore = Math.round((categoryScores.inattention.sum / (categoryScores.inattention.count * 4)) * 100);
+            const hyperactivityScore = Math.round((categoryScores.hyperactivity.sum / (categoryScores.hyperactivity.count * 4)) * 100);
+            const impulsivityScore = Math.round((categoryScores.impulsivity.sum / (categoryScores.impulsivity.count * 4)) * 100);
+            
+            // Update the result bars
+            document.getElementById('inattentionScore').textContent = `${inattentionScore}%`;
+            document.getElementById('inattentionBar').style.width = `${inattentionScore}%`;
+            
+            document.getElementById('hyperactivityScore').textContent = `${hyperactivityScore}%`;
+            document.getElementById('hyperactivityBar').style.width = `${hyperactivityScore}%`;
+            
+            document.getElementById('impulsivityScore').textContent = `${impulsivityScore}%`;
+            document.getElementById('impulsivityBar').style.width = `${impulsivityScore}%`;
+            
+            // Determine overall result message
+            const resultMessage = document.getElementById('resultMessage');
+            const totalScore = inattentionScore + hyperactivityScore + impulsivityScore;
+            const averageScore = totalScore / 3;
+            
+            if (averageScore >= 70) {
+                resultMessage.innerHTML = `
+                    <p class="font-bold text-lg mb-2">Seus resultados indicam sinais significativos de TDAH.</p>
+                    <p>Você relatou dificuldades frequentes com atenção, hiperatividade e/ou impulsividade que podem estar afetando sua vida diária. Recomendamos fortemente que você consulte um psicólogo ou psiquiatra especializado em TDAH para uma avaliação mais completa.</p>
+                `;
+            } else if (averageScore >= 40) {
+                resultMessage.innerHTML = `
+                    <p class="font-bold text-lg mb-2">Seus resultados mostram alguns sinais de TDAH.</p>
+                    <p>Você experimenta dificuldades moderadas com atenção, hiperatividade ou impulsividade que podem valer a pena explorar com um profissional. Embora seus sintomas possam não ser graves o suficiente para um diagnóstico, estratégias de gerenciamento podem ser úteis.</p>
+                `;
+            } else {
+                resultMessage.innerHTML = `
+                    <p class="font-bold text-lg mb-2">Seus resultados mostram poucos sinais de TDAH.</p>
+                    <p>Com base em suas respostas, você não parece ter dificuldades significativas com atenção, hiperatividade ou impulsividade que sejam consistentes com TDAH. No entanto, se você ainda tiver preocupações, não hesite em conversar com um profissional.</p>
+                `;
+            }
+            
+            showSection(sections.results);
+        }
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Here you would normally send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Obrigado pelo seu contato! Um psicólogo entrará em contato em breve.');
+            
+            // Reset form
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
