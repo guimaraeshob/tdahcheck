@@ -1,2 +1,2 @@
 # tdahcheck
-app para teste de TDAH
+app para teste de TDAH em fase Beta 

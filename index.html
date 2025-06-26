@@ -52,6 +52,29 @@
             background-color: #374151;
             border-color: #4B5563;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .psychologist-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .psychologist-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .psychologist-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .psychologist-card:nth-child(3) {
+            animation-delay: 0.5s;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -62,9 +85,14 @@
                 <i class="fas fa-brain text-3xl"></i>
                 <h1 class="text-2xl font-bold">TDAH Check</h1>
             </div>
-            <button id="darkModeToggle" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition">
-                <i class="fas fa-moon"></i>
-            </button>
+            <div class="flex items-center space-x-4">
+                <a href="#psychologists" class="hidden md:block bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-medium py-2 px-4 rounded-full transition">
+                    <i class="fas fa-user-md mr-2"></i> Psicólogos
+                </a>
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -272,6 +300,69 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Psychologists Section -->
+        <section id="psychologists" class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-dark mb-12">Nossos Psicólogos Especializados</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Psychologist 1 -->
+                    <div class="psychologist-card bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition duration-300">
+                        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dra. Ana Silva" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Dra. Ana Silva</h3>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-graduation-cap text-primary mr-2"></i>Psicóloga Clínica</p>
+                        <p class="text-gray-700 mb-4">Especialista em TDAH em adultos e terapia cognitivo-comportamental</p>
+                        <a href="https://wa.me/5511999999999" target="_blank" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-full inline-flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i> Agendar Consulta
+                        </a>
+                        <div class="mt-4">
+                            <a href="#" class="text-pink-600 hover:text-pink-700">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Psychologist 2 -->
+                    <div class="psychologist-card bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition duration-300">
+                        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Carlos Mendes" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Dr. Carlos Mendes</h3>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-graduation-cap text-primary mr-2"></i>Neuropsicólogo</p>
+                        <p class="text-gray-700 mb-4">Especialista em diagnóstico e intervenção no TDAH em crianças e adolescentes</p>
+                        <a href="https://wa.me/5511988888888" target="_blank" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-full inline-flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i> Agendar Consulta
+                        </a>
+                        <div class="mt-4">
+                            <a href="#" class="text-pink-600 hover:text-pink-700">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Psychologist 3 -->
+                    <div class="psychologist-card bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition duration-300">
+                        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dra. Juliana Oliveira" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Dra. Juliana Oliveira</h3>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-graduation-cap text-primary mr-2"></i>Psicoterapeuta</p>
+                        <p class="text-gray-700 mb-4">Especialista em TDAH e transtornos de aprendizagem</p>
+                        <a href="https://wa.me/5511977777777" target="_blank" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-full inline-flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i> Agendar Consulta
+                        </a>
+                        <div class="mt-4">
+                            <a href="#" class="text-pink-600 hover:text-pink-700">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -696,4 +787,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
